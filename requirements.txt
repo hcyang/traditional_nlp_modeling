@@ -1,0 +1,5 @@
+
+# conda install --file requirements.txt
+
+unidecode
+opencc
