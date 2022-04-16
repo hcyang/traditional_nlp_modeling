@@ -3699,7 +3699,7 @@ class WikipediaDumpXmlProcessor:
                                             WikipediaDumpXmlProcessorRecordFactory.process_wiki_text( \
                                                 record=record,
                                                 input_wiki_text=current_page_revision_text)
-                                        except RuntimeError:
+                                        except:
                                             DebuggingHelper.write_line_to_system_console_out(\
                                                 "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
                                                 current_page_id))
@@ -3769,7 +3769,7 @@ class WikipediaDumpXmlProcessor:
                                             WikipediaDumpXmlProcessorRecordFactory.process_wiki_text( \
                                                 record=record,
                                                 input_wiki_text=current_page_revision_text)
-                                        except RuntimeError:
+                                        except:
                                             DebuggingHelper.write_line_to_system_console_out(\
                                                 "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
                                                 current_page_id))
@@ -3845,7 +3845,7 @@ class WikipediaDumpXmlProcessor:
                                             WikipediaDumpXmlProcessorRecordFactory.process_wiki_text( \
                                                 record=record,
                                                 input_wiki_text=current_page_revision_text)
-                                        except RuntimeError:
+                                        except:
                                             DebuggingHelper.write_line_to_system_console_out(\
                                                 "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
                                                 current_page_id))
