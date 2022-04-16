@@ -96,7 +96,7 @@ class DebuggingHelper:
                 handler.close()
                 logger.removeHandler(handler)
         DebuggingHelper.LOGGER_DICTIONARY = {}
-        return DebuggingHelper.LOGGER_DIRECTORY
+        return DebuggingHelper.LOGGER_DICTIONARY
 
     @staticmethod
     def reset_logger_directory( \

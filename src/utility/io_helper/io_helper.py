@@ -213,7 +213,7 @@ class IoHelper:
         Retrieve a file's base name.
         """
         stem: str = pathlib_path(path).stem
-        print('---- IoHelper.basename()={}'.format(stem), file=sys.stderr)
+        # print('---- IoHelper.basename()={}'.format(stem), file=sys.stderr)
         return stem
 
     @staticmethod
@@ -222,7 +222,7 @@ class IoHelper:
         Retrieve the executable name.
         """
         executable: str = sys.executable
-        print('---- IoHelper.get_executable()={}'.format(executable), file=sys.stderr)
+        # print('---- IoHelper.get_executable()={}'.format(executable), file=sys.stderr)
         return executable
 
     @staticmethod
@@ -231,7 +231,7 @@ class IoHelper:
         Retrieve the executable path.
         """
         path: str = pathlib_path(IoHelper.get_executable())
-        print('---- IoHelper.get_executable_path()={}'.format(path), file=sys.stderr)
+        # print('---- IoHelper.get_executable_path()={}'.format(path), file=sys.stderr)
         return path
 
     @staticmethod
@@ -240,7 +240,7 @@ class IoHelper:
         Retrieve the executable path.
         """
         path: str = IoHelper.get_executable_path()
-        print('---- IoHelper.get_root_path()={}'.format(path), file=sys.stderr)
+        # print('---- IoHelper.get_root_path()={}'.format(path), file=sys.stderr)
         return path
 
     @staticmethod
@@ -249,7 +249,7 @@ class IoHelper:
         Retrieve the executable path.
         """
         path = IoHelper.get_root_path()
-        print('---- IoHelper.get_root()={}'.format(path), file=sys.stderr)
+        # print('---- IoHelper.get_root()={}'.format(path), file=sys.stderr)
         return path.root
 
     @staticmethod

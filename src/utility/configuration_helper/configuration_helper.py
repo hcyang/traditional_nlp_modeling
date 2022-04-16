@@ -19,7 +19,7 @@ class ConfigurationHelperBase:
     # ---- NOTE-PYLINT ---- R0903: Too few public methods
     # pylint: disable=R0903
 
-    ROOT_DIRECTORY_NAME: str = 'pyludispatch'
+    ROOT_DIRECTORY_NAME: str = os.path.join('tmp', 'pyludispatch')
 
     @staticmethod
     def get_timestamp():
