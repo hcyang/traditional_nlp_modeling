@@ -1,3 +1,4 @@
+#!/usr/bin/sh
 
 export APP_MODULE_PATH=wikipedia_processor
 export APP_MODULE_FILE_NAME=app_wikipedia_dump_xml_processor
