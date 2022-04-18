@@ -3517,7 +3517,12 @@ class WikipediaDumpXmlProcessor:
         number_pages_processed_for_progress_update: int = 10000, \
         debugging_title: str = None, \
         debugging_title_alternatives: Set[str] = None, \
-        debugging_text_substring: str = None):
+        debugging_text_substring: str = None, \
+        dump_individual_text_entry_files: bool = True, \
+        dump_individual_json_entry_files: bool = False, \
+        write_entries_to_templates_writer: bool = False, \
+        write_entries_to_article_redirects_writer: bool = False, \
+        write_entries_to_article_revisions_writer: bool = False):
         # ---- NOTE-PYLINT ---- C0301: Line too long
         # pylint: disable=C0301
         # ---- NOTE-PYLINT ---- R0912: Too many branches (28/12) (too-many-branches)
@@ -3534,15 +3539,22 @@ class WikipediaDumpXmlProcessor:
         # --------------------------------------------------------------------
         encoding: str = "utf-8"
         # --------------------------------------------------------------------
+        generate_record_json_entry_templates: bool = \
+            dump_individual_json_entry_files and write_entries_to_templates_writer
+        generate_record_json_entry_article_redirects: bool = \
+            dump_individual_json_entry_files and write_entries_to_article_redirects_writer
+        generate_record_json_entry_article_revisions: bool = \
+            dump_individual_json_entry_files and write_entries_to_article_revisions_writer
+        # --------------------------------------------------------------------
         processed_output_filename_article_redirects: str = 'article_redirects.tsv'
         processed_output_filename_article_revisions: str = 'article_revisions.tsv'
         processed_output_filename_templates: str = 'article_templates.tsv'
         processed_output_filename_article_redirect_json_entry: str = 'article_redirect_entry_{}_{}.json'
         processed_output_filename_article_revision_json_entry: str = 'article_revision_entry_{}_{}.json'
         processed_output_filename_template_json_entry: str = 'article_template_entry_{}_{}.json'
-        processed_output_filename_article_redirect_txt_entry: str = 'article_redirect_entry_{}_{}.txt'
-        processed_output_filename_article_revision_txt_entry: str = 'article_revision_entry_{}_{}.txt'
-        processed_output_filename_template_txt_entry: str = 'article_template_entry_{}_{}.txt'
+        processed_output_filename_article_redirect_text_entry: str = 'article_redirect_entry_{}_{}.txt'
+        processed_output_filename_article_revision_text_entry: str = 'article_revision_entry_{}_{}.txt'
+        processed_output_filename_template_text_entry: str = 'article_template_entry_{}_{}.txt'
         processed_output_filename_article_redirect_exception_entry: str = 'article_redirect_exception_entry_{}_{}.txt'
         processed_output_filename_article_revision_exception_entry: str = 'article_revision_exception_entry_{}_{}.txt'
         processed_output_filename_template_exception_entry: str = 'article_template_entry_exception_{}_{}.txt'
@@ -3714,47 +3726,51 @@ class WikipediaDumpXmlProcessor:
                                                 processed_output_filename_template_exception_entry_writer.write(current_page_revision_text)
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
+                                            None if not generate_record_json_entry_templates else \
                                             record.to_json_friendly_structure( \
                                                 web_page_title=current_page_title, \
                                                 json_configuration=json_configuration)
-                                        try:
-                                            templates_writer.writerow(\
-                                                [count_template_page_rows_written, \
-                                                current_page_id, \
-                                                current_page_ns, \
-                                                current_page_title, \
-                                                record_json_friendly_structure, \
-                                                record.get_wiki_text_lines(), \
-                                                current_page_restrictions])
-                                        except:
-                                            DebuggingHelper.write_line_to_system_console_out(\
-                                                "==== EXCEPTION-THROWN-templates_writer: current_page_id={}".format(\
-                                                current_page_id))
-                                            raise
-                                        processed_output_path_template_json_entry: str = \
-                                            os.path.join( \
-                                                self.wikipedia_output_process_path, \
-                                                processed_output_filename_template_json_entry.format(count_template_page_rows_written, current_page_id))
-                                        with codecs.open( \
-                                            filename=processed_output_path_template_json_entry, \
-                                            mode="w", \
-                                            encoding=encoding) as processed_output_filename_template_json_entry_writer:
-                                            json.dump( \
-                                                ensure_ascii=False, \
-                                                obj=record_json_friendly_structure, \
-                                                fp=processed_output_filename_template_json_entry_writer, \
-                                                indent=2)
-                                        processed_output_path_template_txt_entry: str = \
-                                            os.path.join( \
-                                                self.wikipedia_output_process_path, \
-                                                processed_output_filename_template_txt_entry.format(count_template_page_rows_written, current_page_id))
-                                        with codecs.open( \
-                                            filename=processed_output_path_template_txt_entry, \
-                                            mode="w", \
-                                            encoding=encoding) as processed_output_filename_template_txt_entry_writer:
-                                            record.write_lines_to_file( \
-                                                web_page_title=current_page_title, \
-                                                writer=processed_output_filename_template_txt_entry_writer)
+                                        if write_entries_to_templates_writer:
+                                            try:
+                                                templates_writer.writerow(\
+                                                    [count_template_page_rows_written, \
+                                                    current_page_id, \
+                                                    current_page_ns, \
+                                                    current_page_title, \
+                                                    record_json_friendly_structure, \
+                                                    record.get_wiki_text_lines(), \
+                                                    current_page_restrictions])
+                                            except:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-templates_writer: current_page_id={}".format(\
+                                                    current_page_id))
+                                                raise
+                                        if dump_individual_json_entry_files:
+                                            processed_output_path_template_json_entry: str = \
+                                                os.path.join( \
+                                                    self.wikipedia_output_process_path, \
+                                                    processed_output_filename_template_json_entry.format(count_template_page_rows_written, current_page_id))
+                                            with codecs.open( \
+                                                filename=processed_output_path_template_json_entry, \
+                                                mode="w", \
+                                                encoding=encoding) as processed_output_filename_template_json_entry_writer:
+                                                json.dump( \
+                                                    ensure_ascii=False, \
+                                                    obj=record_json_friendly_structure, \
+                                                    fp=processed_output_filename_template_json_entry_writer, \
+                                                    indent=2)
+                                        if dump_individual_text_entry_files:
+                                            processed_output_path_template_text_entry: str = \
+                                                os.path.join( \
+                                                    self.wikipedia_output_process_path, \
+                                                    processed_output_filename_template_text_entry.format(count_template_page_rows_written, current_page_id))
+                                            with codecs.open( \
+                                                filename=processed_output_path_template_text_entry, \
+                                                mode="w", \
+                                                encoding=encoding) as processed_output_filename_template_text_entry_writer:
+                                                record.write_lines_to_file( \
+                                                    web_page_title=current_page_title, \
+                                                    writer=processed_output_filename_template_text_entry_writer)
                                         count_template_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- templates_writer.writerow(current_page_revision_text)
                                 elif current_page_has_redirect_title:
@@ -3784,51 +3800,55 @@ class WikipediaDumpXmlProcessor:
                                                 processed_output_filename_article_redirect_exception_entry_writer.write(current_page_revision_text)
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
+                                            None if not generate_record_json_entry_article_redirects else \
                                             record.to_json_friendly_structure( \
                                                 web_page_title=current_page_title, \
                                                 json_configuration=json_configuration)
-                                        try:
-                                            article_redirects_writer.writerow(\
-                                                [count_redirect_page_rows_written, \
-                                                current_page_id, \
-                                                current_page_ns, \
-                                                current_page_revision_ids[index], \
-                                                current_page_revision_parent_ids[index], \
-                                                current_page_title, \
-                                                current_page_redirect_title, \
-                                                current_page_revision_timestamps[index], \
-                                                record_json_friendly_structure, \
-                                                record.get_wiki_text_lines(), \
-                                                current_page_restrictions])
-                                        except:
-                                            DebuggingHelper.write_line_to_system_console_out(\
-                                                "==== EXCEPTION-THROWN-article_redirects_writer: current_page_id={}".format(\
-                                                current_page_id))
-                                            raise
-                                        processed_output_path_article_redirect_json_entry: str = \
-                                            os.path.join( \
-                                                self.wikipedia_output_process_path, \
-                                                processed_output_filename_article_redirect_json_entry.format(count_redirect_page_rows_written, current_page_id))
-                                        with codecs.open( \
-                                            filename=processed_output_path_article_redirect_json_entry, \
-                                            mode="w", \
-                                            encoding=encoding) as processed_output_filename_article_redirect_json_entry_writer:
-                                            json.dump( \
-                                                ensure_ascii=False, \
-                                                obj=record_json_friendly_structure, \
-                                                fp=processed_output_filename_article_redirect_json_entry_writer, \
-                                                indent=2)
-                                        processed_output_path_article_redirect_txt_entry: str = \
-                                            os.path.join( \
-                                                self.wikipedia_output_process_path, \
-                                                processed_output_filename_article_redirect_txt_entry.format(count_redirect_page_rows_written, current_page_id))
-                                        with codecs.open( \
-                                            filename=processed_output_path_article_redirect_txt_entry, \
-                                            mode="w", \
-                                            encoding=encoding) as processed_output_filename_article_redirect_txt_entry_writer:
-                                            record.write_lines_to_file( \
-                                                web_page_title=current_page_title, \
-                                                writer=processed_output_filename_article_redirect_txt_entry_writer)
+                                        if write_entries_to_article_redirects_writer:
+                                            try:
+                                                article_redirects_writer.writerow(\
+                                                    [count_redirect_page_rows_written, \
+                                                    current_page_id, \
+                                                    current_page_ns, \
+                                                    current_page_revision_ids[index], \
+                                                    current_page_revision_parent_ids[index], \
+                                                    current_page_title, \
+                                                    current_page_redirect_title, \
+                                                    current_page_revision_timestamps[index], \
+                                                    record_json_friendly_structure, \
+                                                    record.get_wiki_text_lines(), \
+                                                    current_page_restrictions])
+                                            except:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-article_redirects_writer: current_page_id={}".format(\
+                                                    current_page_id))
+                                                raise
+                                        if dump_individual_json_entry_files:
+                                            processed_output_path_article_redirect_json_entry: str = \
+                                                os.path.join( \
+                                                    self.wikipedia_output_process_path, \
+                                                    processed_output_filename_article_redirect_json_entry.format(count_redirect_page_rows_written, current_page_id))
+                                            with codecs.open( \
+                                                filename=processed_output_path_article_redirect_json_entry, \
+                                                mode="w", \
+                                                encoding=encoding) as processed_output_filename_article_redirect_json_entry_writer:
+                                                json.dump( \
+                                                    ensure_ascii=False, \
+                                                    obj=record_json_friendly_structure, \
+                                                    fp=processed_output_filename_article_redirect_json_entry_writer, \
+                                                    indent=2)
+                                        if dump_individual_text_entry_files:
+                                            processed_output_path_article_redirect_text_entry: str = \
+                                                os.path.join( \
+                                                    self.wikipedia_output_process_path, \
+                                                    processed_output_filename_article_redirect_text_entry.format(count_redirect_page_rows_written, current_page_id))
+                                            with codecs.open( \
+                                                filename=processed_output_path_article_redirect_text_entry, \
+                                                mode="w", \
+                                                encoding=encoding) as processed_output_filename_article_redirect_text_entry_writer:
+                                                record.write_lines_to_file( \
+                                                    web_page_title=current_page_title, \
+                                                    writer=processed_output_filename_article_redirect_text_entry_writer)
                                         count_redirect_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_redirects_writer.writerow(current_page_revision_text)
                                 else:
@@ -3860,50 +3880,54 @@ class WikipediaDumpXmlProcessor:
                                                 processed_output_filename_article_revision_exception_entry_writer.write(current_page_revision_text)
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
+                                            None if generate_record_json_entry_article_revisions else \
                                             record.to_json_friendly_structure( \
                                                 web_page_title=current_page_title, \
                                                 json_configuration=json_configuration)
-                                        try:
-                                            article_revisions_writer.writerow(\
-                                                [count_article_page_rows_written, \
-                                                current_page_id, \
-                                                current_page_ns, \
-                                                current_page_revision_ids[index], \
-                                                current_page_revision_parent_ids[index], \
-                                                current_page_title, \
-                                                current_page_revision_timestamps[index], \
-                                                record_json_friendly_structure, \
-                                                record.get_wiki_text_lines(), \
-                                                current_page_restrictions])
-                                        except:
-                                            DebuggingHelper.write_line_to_system_console_out(\
-                                                "==== EXCEPTION-THROWN-article_revisions_writer: current_page_id={}".format(\
-                                                current_page_id))
-                                            raise
-                                        processed_output_path_article_revision_json_entry: str = \
-                                            os.path.join( \
-                                                self.wikipedia_output_process_path, \
-                                                processed_output_filename_article_revision_json_entry.format(count_article_page_rows_written, current_page_id))
-                                        with codecs.open( \
-                                            filename=processed_output_path_article_revision_json_entry, \
-                                            mode="w", \
-                                            encoding=encoding) as processed_output_filename_article_revision_json_entry_writer:
-                                            json.dump( \
-                                                ensure_ascii=False, \
-                                                obj=record_json_friendly_structure, \
-                                                fp=processed_output_filename_article_revision_json_entry_writer, \
-                                                indent=2)
-                                        processed_output_path_article_revision_txt_entry: str = \
-                                            os.path.join( \
-                                                self.wikipedia_output_process_path, \
-                                                processed_output_filename_article_revision_txt_entry.format(count_article_page_rows_written, current_page_id))
-                                        with codecs.open( \
-                                            filename=processed_output_path_article_revision_txt_entry, \
-                                            mode="w", \
-                                            encoding=encoding) as processed_output_filename_article_revision_txt_entry_writer:
-                                            record.write_lines_to_file( \
-                                                web_page_title=current_page_title, \
-                                                writer=processed_output_filename_article_revision_txt_entry_writer)
+                                        if write_entries_to_article_revisions_writer:
+                                            try:
+                                                article_revisions_writer.writerow(\
+                                                    [count_article_page_rows_written, \
+                                                    current_page_id, \
+                                                    current_page_ns, \
+                                                    current_page_revision_ids[index], \
+                                                    current_page_revision_parent_ids[index], \
+                                                    current_page_title, \
+                                                    current_page_revision_timestamps[index], \
+                                                    record_json_friendly_structure, \
+                                                    record.get_wiki_text_lines(), \
+                                                    current_page_restrictions])
+                                            except:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-article_revisions_writer: current_page_id={}".format(\
+                                                    current_page_id))
+                                                raise
+                                        if dump_individual_json_entry_files:
+                                            processed_output_path_article_revision_json_entry: str = \
+                                                os.path.join( \
+                                                    self.wikipedia_output_process_path, \
+                                                    processed_output_filename_article_revision_json_entry.format(count_article_page_rows_written, current_page_id))
+                                            with codecs.open( \
+                                                filename=processed_output_path_article_revision_json_entry, \
+                                                mode="w", \
+                                                encoding=encoding) as processed_output_filename_article_revision_json_entry_writer:
+                                                json.dump( \
+                                                    ensure_ascii=False, \
+                                                    obj=record_json_friendly_structure, \
+                                                    fp=processed_output_filename_article_revision_json_entry_writer, \
+                                                    indent=2)
+                                        if dump_individual_text_entry_files:
+                                            processed_output_path_article_revision_text_entry: str = \
+                                                os.path.join( \
+                                                    self.wikipedia_output_process_path, \
+                                                    processed_output_filename_article_revision_text_entry.format(count_article_page_rows_written, current_page_id))
+                                            with codecs.open( \
+                                                filename=processed_output_path_article_revision_text_entry, \
+                                                mode="w", \
+                                                encoding=encoding) as processed_output_filename_article_revision_text_entry_writer:
+                                                record.write_lines_to_file( \
+                                                    web_page_title=current_page_title, \
+                                                    writer=processed_output_filename_article_revision_text_entry_writer)
                                         count_article_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_revisions_writer.writerow(current_page_revision_text)
                             if (number_pages_processed_for_progress_update > 0) and \
