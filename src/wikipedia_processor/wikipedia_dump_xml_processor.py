@@ -3727,7 +3727,7 @@ class WikipediaDumpXmlProcessor:
                                                 mode="w", \
                                                 encoding=encoding) as processed_output_filename_template_exception_entry_writer:
                                                 processed_output_filename_template_exception_entry_writer.write(current_page_revision_text)
-                                                processed_output_filename_template_exception_entry_writer.close()
+                                                processed_output_filename_template_exception_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
                                             None if not generate_record_json_entry_templates else \
@@ -3763,7 +3763,7 @@ class WikipediaDumpXmlProcessor:
                                                     obj=record_json_friendly_structure, \
                                                     fp=processed_output_filename_template_json_entry_writer, \
                                                     indent=2)
-                                                processed_output_filename_template_json_entry_writer.close()
+                                                processed_output_filename_template_json_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
                                         if dump_individual_text_entry_files:
                                             processed_output_path_template_text_entry: str = \
                                                 os.path.join( \
@@ -3776,7 +3776,7 @@ class WikipediaDumpXmlProcessor:
                                                 record.write_lines_to_file( \
                                                     web_page_title=current_page_title, \
                                                     writer=processed_output_filename_template_text_entry_writer)
-                                                processed_output_filename_template_text_entry_writer.close()
+                                                processed_output_filename_template_text_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
                                         count_template_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- templates_writer.writerow(current_page_revision_text)
                                 elif current_page_has_redirect_title:
@@ -3804,7 +3804,7 @@ class WikipediaDumpXmlProcessor:
                                                 mode="w", \
                                                 encoding=encoding) as processed_output_filename_article_redirect_exception_entry_writer:
                                                 processed_output_filename_article_redirect_exception_entry_writer.write(current_page_revision_text)
-                                                processed_output_filename_article_redirect_exception_entry_writer.close()
+                                                processed_output_filename_article_redirect_exception_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
                                             None if not generate_record_json_entry_article_redirects else \
@@ -3844,7 +3844,7 @@ class WikipediaDumpXmlProcessor:
                                                     obj=record_json_friendly_structure, \
                                                     fp=processed_output_filename_article_redirect_json_entry_writer, \
                                                     indent=2)
-                                                processed_output_filename_article_redirect_json_entry_writer.close()
+                                                processed_output_filename_article_redirect_json_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_redirect_text_entry: str = \
                                                 os.path.join( \
@@ -3857,7 +3857,7 @@ class WikipediaDumpXmlProcessor:
                                                 record.write_lines_to_file( \
                                                     web_page_title=current_page_title, \
                                                     writer=processed_output_filename_article_redirect_text_entry_writer)
-                                                processed_output_filename_article_redirect_text_entry_writer.close()
+                                                processed_output_filename_article_redirect_text_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
                                         count_redirect_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_redirects_writer.writerow(current_page_revision_text)
                                 else:
@@ -3887,7 +3887,7 @@ class WikipediaDumpXmlProcessor:
                                                 mode="w", \
                                                 encoding=encoding) as processed_output_filename_article_revision_exception_entry_writer:
                                                 processed_output_filename_article_revision_exception_entry_writer.write(current_page_revision_text)
-                                                processed_output_filename_article_revision_exception_entry_writer.close()
+                                                processed_output_filename_article_revision_exception_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
                                             None if generate_record_json_entry_article_revisions else \
@@ -3926,7 +3926,7 @@ class WikipediaDumpXmlProcessor:
                                                     obj=record_json_friendly_structure, \
                                                     fp=processed_output_filename_article_revision_json_entry_writer, \
                                                     indent=2)
-                                                processed_output_filename_article_revision_json_entry_writer.close()
+                                                processed_output_filename_article_revision_json_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_revision_text_entry: str = \
                                                 os.path.join( \
@@ -3939,7 +3939,7 @@ class WikipediaDumpXmlProcessor:
                                                 record.write_lines_to_file( \
                                                     web_page_title=current_page_title, \
                                                     writer=processed_output_filename_article_revision_text_entry_writer)
-                                                processed_output_filename_article_revision_text_entry_writer.close()
+                                                processed_output_filename_article_revision_text_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
                                         count_article_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_revisions_writer.writerow(current_page_revision_text)
                             if (number_pages_processed_for_progress_update > 0) and \
@@ -3981,10 +3981,13 @@ class WikipediaDumpXmlProcessor:
                             (count_total_pages >= number_pages_processed_for_break):
                             break
                         element.clear() # ---- NOTE ---- need to clear the element, otherwise the system might run out of memory.
-                wikipedia_dump_xml_fd.close()
-            processed_output_file_handle_article_redirects.close()
-            processed_output_file_handle_article_revisions.close()
-            processed_output_file_handle_templates.close()
+                wikipedia_dump_xml_fd.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+            article_revisions_writer.close()
+            article_redirects_writer.close()
+            templates_writer.close()
+            processed_output_file_handle_article_redirects.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+            processed_output_file_handle_article_revisions.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+            processed_output_file_handle_templates.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
         process_duration = time.time() - process_start_time
         DebuggingHelper.write_line_to_system_console_out(\
             "---- total number of pages processed: {}".format(\
