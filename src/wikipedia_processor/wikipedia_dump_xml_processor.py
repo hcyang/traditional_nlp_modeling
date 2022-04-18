@@ -3659,7 +3659,10 @@ class WikipediaDumpXmlProcessor:
             # ---- NOTE-FOR-REFERENCE ----     Returns an iterator providing (event, elem) pairs.
             # ---- NOTE-FOR-REFERENCE ----
             # ---- NOTE-FOR-REFERENCE ----     """
-            with bz2.open(filename=wikipedia_dump_xml_path, mode='rt', encoding=encoding) if wikipedia_dump_xml_path.endswith('.bz2') else codecs.open(filename=wikipedia_dump_xml_path, mode='r', encoding=encoding) as wikipedia_dump_xml_fd:
+            with bz2.open(filename=wikipedia_dump_xml_path, mode='rt', encoding=encoding) \
+                if wikipedia_dump_xml_path.endswith('.bz2') \
+                else codecs.open(filename=wikipedia_dump_xml_path, mode='r', encoding=encoding) \
+                as wikipedia_dump_xml_fd:
                 for event, element in etree.iterparse(wikipedia_dump_xml_fd, events=('start', 'end')):
                     tag_name: str = WikipediaDumpXmlProcessorHelperFunctions.strip_tag_name(element.tag)
                     if event == 'start': # ---- 'start' event
@@ -3724,6 +3727,7 @@ class WikipediaDumpXmlProcessor:
                                                 mode="w", \
                                                 encoding=encoding) as processed_output_filename_template_exception_entry_writer:
                                                 processed_output_filename_template_exception_entry_writer.write(current_page_revision_text)
+                                                processed_output_filename_template_exception_entry_writer.close()
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
                                             None if not generate_record_json_entry_templates else \
@@ -3759,6 +3763,7 @@ class WikipediaDumpXmlProcessor:
                                                     obj=record_json_friendly_structure, \
                                                     fp=processed_output_filename_template_json_entry_writer, \
                                                     indent=2)
+                                                processed_output_filename_template_json_entry_writer.close()
                                         if dump_individual_text_entry_files:
                                             processed_output_path_template_text_entry: str = \
                                                 os.path.join( \
@@ -3771,6 +3776,7 @@ class WikipediaDumpXmlProcessor:
                                                 record.write_lines_to_file( \
                                                     web_page_title=current_page_title, \
                                                     writer=processed_output_filename_template_text_entry_writer)
+                                                processed_output_filename_template_text_entry_writer.close()
                                         count_template_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- templates_writer.writerow(current_page_revision_text)
                                 elif current_page_has_redirect_title:
@@ -3798,6 +3804,7 @@ class WikipediaDumpXmlProcessor:
                                                 mode="w", \
                                                 encoding=encoding) as processed_output_filename_article_redirect_exception_entry_writer:
                                                 processed_output_filename_article_redirect_exception_entry_writer.write(current_page_revision_text)
+                                                processed_output_filename_article_redirect_exception_entry_writer.close()
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
                                             None if not generate_record_json_entry_article_redirects else \
@@ -3837,6 +3844,7 @@ class WikipediaDumpXmlProcessor:
                                                     obj=record_json_friendly_structure, \
                                                     fp=processed_output_filename_article_redirect_json_entry_writer, \
                                                     indent=2)
+                                                processed_output_filename_article_redirect_json_entry_writer.close()
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_redirect_text_entry: str = \
                                                 os.path.join( \
@@ -3849,6 +3857,7 @@ class WikipediaDumpXmlProcessor:
                                                 record.write_lines_to_file( \
                                                     web_page_title=current_page_title, \
                                                     writer=processed_output_filename_article_redirect_text_entry_writer)
+                                                processed_output_filename_article_redirect_text_entry_writer.close()
                                         count_redirect_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_redirects_writer.writerow(current_page_revision_text)
                                 else:
@@ -3878,6 +3887,7 @@ class WikipediaDumpXmlProcessor:
                                                 mode="w", \
                                                 encoding=encoding) as processed_output_filename_article_revision_exception_entry_writer:
                                                 processed_output_filename_article_revision_exception_entry_writer.write(current_page_revision_text)
+                                                processed_output_filename_article_revision_exception_entry_writer.close()
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
                                             None if generate_record_json_entry_article_revisions else \
@@ -3916,6 +3926,7 @@ class WikipediaDumpXmlProcessor:
                                                     obj=record_json_friendly_structure, \
                                                     fp=processed_output_filename_article_revision_json_entry_writer, \
                                                     indent=2)
+                                                processed_output_filename_article_revision_json_entry_writer.close()
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_revision_text_entry: str = \
                                                 os.path.join( \
@@ -3928,6 +3939,7 @@ class WikipediaDumpXmlProcessor:
                                                 record.write_lines_to_file( \
                                                     web_page_title=current_page_title, \
                                                     writer=processed_output_filename_article_revision_text_entry_writer)
+                                                processed_output_filename_article_revision_text_entry_writer.close()
                                         count_article_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_revisions_writer.writerow(current_page_revision_text)
                             if (number_pages_processed_for_progress_update > 0) and \
@@ -3969,6 +3981,10 @@ class WikipediaDumpXmlProcessor:
                             (count_total_pages >= number_pages_processed_for_break):
                             break
                         element.clear() # ---- NOTE ---- need to clear the element, otherwise the system might run out of memory.
+                wikipedia_dump_xml_fd.close()
+            processed_output_file_handle_article_redirects.close()
+            processed_output_file_handle_article_revisions.close()
+            processed_output_file_handle_templates.close()
         process_duration = time.time() - process_start_time
         DebuggingHelper.write_line_to_system_console_out(\
             "---- total number of pages processed: {}".format(\
