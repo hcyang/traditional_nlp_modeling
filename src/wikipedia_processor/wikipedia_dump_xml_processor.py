@@ -3596,10 +3596,10 @@ class WikipediaDumpXmlProcessor:
         # --------------------------------------------------------------------
         if not os.path.exists(self.wikipedia_output_process_path):
             os.makedirs(self.wikipedia_output_process_path)
-        with codecs.open(filename=processed_output_path_article_redirects, mode="w", encoding=encoding) as \
-                processed_output_file_handle_article_redirects, \
-            codecs.open(filename=processed_output_path_article_revisions, mode="w", encoding=encoding) as \
+        with codecs.open(filename=processed_output_path_article_revisions, mode="w", encoding=encoding) as \
                 processed_output_file_handle_article_revisions, \
+            codecs.open(filename=processed_output_path_article_redirects, mode="w", encoding=encoding) as \
+                processed_output_file_handle_article_redirects, \
             codecs.open(filename=processed_output_path_templates, mode="w", encoding=encoding) as \
                 processed_output_file_handle_templates:
             templates_writer: csv.writer = csv.writer( \
@@ -3711,23 +3711,39 @@ class WikipediaDumpXmlProcessor:
                                         record: WikipediaDumpXmlProcessorRecord = \
                                             WikipediaDumpXmlProcessorRecord()
                                         try:
-                                            WikipediaDumpXmlProcessorRecordFactory.process_wiki_text( \
+                                            WikipediaDumpXmlProcessorRecordFactory.process_wiki_text(
                                                 record=record,
                                                 input_wiki_text=current_page_revision_text)
-                                        except:
+                                        # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                        # pylint: disable=W0703
+                                        except Exception as exception:
                                             DebuggingHelper.write_line_to_system_console_out(\
                                                 "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
                                                 current_page_id))
+                                            DebuggingHelper.write_line_to_system_console_out(\
+                                                "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: exception={}".format(\
+                                                exception))
                                             processed_output_path_template_exception_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
                                                     processed_output_filename_template_exception_entry.format(count_template_page_rows_written, current_page_id))
-                                            with codecs.open( \
-                                                filename=processed_output_path_template_exception_entry, \
-                                                mode="w", \
-                                                encoding=encoding) as processed_output_filename_template_exception_entry_writer:
-                                                processed_output_filename_template_exception_entry_writer.write(current_page_revision_text)
-                                                processed_output_filename_template_exception_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            try:
+                                                with codecs.open( \
+                                                    filename=processed_output_path_template_exception_entry, \
+                                                    mode="w", \
+                                                    encoding=encoding) as processed_output_filename_template_exception_entry_writer:
+                                                    processed_output_filename_template_exception_entry_writer.write(current_page_revision_text)
+                                                    # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_filename_template_exception_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception_sub_codes_open:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
+                                                    current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
+                                                    exception_sub_codes_open))
+                                                raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
                                             None if not generate_record_json_entry_templates else \
@@ -3744,39 +3760,66 @@ class WikipediaDumpXmlProcessor:
                                                     record_json_friendly_structure, \
                                                     record.get_wiki_text_lines(), \
                                                     current_page_restrictions])
-                                            except:
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception:
                                                 DebuggingHelper.write_line_to_system_console_out(\
                                                     "==== EXCEPTION-THROWN-templates_writer: current_page_id={}".format(\
                                                     current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-templates_writer: exception={}".format(\
+                                                    exception))
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_template_json_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
                                                     processed_output_filename_template_json_entry.format(count_template_page_rows_written, current_page_id))
-                                            with codecs.open( \
-                                                filename=processed_output_path_template_json_entry, \
-                                                mode="w", \
-                                                encoding=encoding) as processed_output_filename_template_json_entry_writer:
-                                                json.dump( \
-                                                    ensure_ascii=False, \
-                                                    obj=record_json_friendly_structure, \
-                                                    fp=processed_output_filename_template_json_entry_writer, \
-                                                    indent=2)
-                                                processed_output_filename_template_json_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            try:
+                                                with codecs.open( \
+                                                    filename=processed_output_path_template_json_entry, \
+                                                    mode="w", \
+                                                    encoding=encoding) as processed_output_filename_template_json_entry_writer:
+                                                    json.dump( \
+                                                        ensure_ascii=False, \
+                                                        obj=record_json_friendly_structure, \
+                                                        fp=processed_output_filename_template_json_entry_writer, \
+                                                        indent=2)
+                                                    # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_filename_template_json_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception_sub_codes_open:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
+                                                    current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
+                                                    exception_sub_codes_open))
+                                                raise
                                         if dump_individual_text_entry_files:
                                             processed_output_path_template_text_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
                                                     processed_output_filename_template_text_entry.format(count_template_page_rows_written, current_page_id))
-                                            with codecs.open( \
-                                                filename=processed_output_path_template_text_entry, \
-                                                mode="w", \
-                                                encoding=encoding) as processed_output_filename_template_text_entry_writer:
-                                                record.write_lines_to_file( \
-                                                    web_page_title=current_page_title, \
-                                                    writer=processed_output_filename_template_text_entry_writer)
-                                                processed_output_filename_template_text_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            try:
+                                                with codecs.open( \
+                                                    filename=processed_output_path_template_text_entry, \
+                                                    mode="w", \
+                                                    encoding=encoding) as processed_output_filename_template_text_entry_writer:
+                                                    record.write_lines_to_file( \
+                                                        web_page_title=current_page_title, \
+                                                        writer=processed_output_filename_template_text_entry_writer)
+                                                    # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_filename_template_text_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception_sub_codes_open:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
+                                                    current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
+                                                    exception_sub_codes_open))
+                                                raise
                                         count_template_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- templates_writer.writerow(current_page_revision_text)
                                 elif current_page_has_redirect_title:
@@ -3788,23 +3831,39 @@ class WikipediaDumpXmlProcessor:
                                         record: WikipediaDumpXmlProcessorRecord = \
                                             WikipediaDumpXmlProcessorRecord()
                                         try:
-                                            WikipediaDumpXmlProcessorRecordFactory.process_wiki_text( \
+                                            WikipediaDumpXmlProcessorRecordFactory.process_wiki_text(
                                                 record=record,
                                                 input_wiki_text=current_page_revision_text)
-                                        except:
+                                        # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                        # pylint: disable=W0703
+                                        except Exception as exception:
                                             DebuggingHelper.write_line_to_system_console_out(\
                                                 "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
                                                 current_page_id))
+                                            DebuggingHelper.write_line_to_system_console_out(\
+                                                "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: exception={}".format(\
+                                                exception))
                                             processed_output_path_article_redirect_exception_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
                                                     processed_output_filename_article_redirect_exception_entry.format(count_redirect_page_rows_written, current_page_id))
-                                            with codecs.open( \
-                                                filename=processed_output_path_article_redirect_exception_entry, \
-                                                mode="w", \
-                                                encoding=encoding) as processed_output_filename_article_redirect_exception_entry_writer:
-                                                processed_output_filename_article_redirect_exception_entry_writer.write(current_page_revision_text)
-                                                processed_output_filename_article_redirect_exception_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            try:
+                                                with codecs.open( \
+                                                    filename=processed_output_path_article_redirect_exception_entry, \
+                                                    mode="w", \
+                                                    encoding=encoding) as processed_output_filename_article_redirect_exception_entry_writer:
+                                                    processed_output_filename_article_redirect_exception_entry_writer.write(current_page_revision_text)
+                                                    # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_filename_article_redirect_exception_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception_sub_codes_open:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
+                                                    current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
+                                                    exception_sub_codes_open))
+                                                raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
                                             None if not generate_record_json_entry_article_redirects else \
@@ -3825,39 +3884,66 @@ class WikipediaDumpXmlProcessor:
                                                     record_json_friendly_structure, \
                                                     record.get_wiki_text_lines(), \
                                                     current_page_restrictions])
-                                            except:
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception:
                                                 DebuggingHelper.write_line_to_system_console_out(\
                                                     "==== EXCEPTION-THROWN-article_redirects_writer: current_page_id={}".format(\
                                                     current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-article_redirects_writer: exception={}".format(\
+                                                    exception))
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_article_redirect_json_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
                                                     processed_output_filename_article_redirect_json_entry.format(count_redirect_page_rows_written, current_page_id))
-                                            with codecs.open( \
-                                                filename=processed_output_path_article_redirect_json_entry, \
-                                                mode="w", \
-                                                encoding=encoding) as processed_output_filename_article_redirect_json_entry_writer:
-                                                json.dump( \
-                                                    ensure_ascii=False, \
-                                                    obj=record_json_friendly_structure, \
-                                                    fp=processed_output_filename_article_redirect_json_entry_writer, \
-                                                    indent=2)
-                                                processed_output_filename_article_redirect_json_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            try:
+                                                with codecs.open( \
+                                                    filename=processed_output_path_article_redirect_json_entry, \
+                                                    mode="w", \
+                                                    encoding=encoding) as processed_output_filename_article_redirect_json_entry_writer:
+                                                    json.dump( \
+                                                        ensure_ascii=False, \
+                                                        obj=record_json_friendly_structure, \
+                                                        fp=processed_output_filename_article_redirect_json_entry_writer, \
+                                                        indent=2)
+                                                    # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_filename_article_redirect_json_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception_sub_codes_open:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
+                                                    current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
+                                                    exception_sub_codes_open))
+                                                raise
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_redirect_text_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
                                                     processed_output_filename_article_redirect_text_entry.format(count_redirect_page_rows_written, current_page_id))
-                                            with codecs.open( \
-                                                filename=processed_output_path_article_redirect_text_entry, \
-                                                mode="w", \
-                                                encoding=encoding) as processed_output_filename_article_redirect_text_entry_writer:
-                                                record.write_lines_to_file( \
-                                                    web_page_title=current_page_title, \
-                                                    writer=processed_output_filename_article_redirect_text_entry_writer)
-                                                processed_output_filename_article_redirect_text_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            try:
+                                                with codecs.open( \
+                                                    filename=processed_output_path_article_redirect_text_entry, \
+                                                    mode="w", \
+                                                    encoding=encoding) as processed_output_filename_article_redirect_text_entry_writer:
+                                                    record.write_lines_to_file( \
+                                                        web_page_title=current_page_title, \
+                                                        writer=processed_output_filename_article_redirect_text_entry_writer)
+                                                    # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_filename_article_redirect_text_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception_sub_codes_open:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
+                                                    current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
+                                                    exception_sub_codes_open))
+                                                raise
                                         count_redirect_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_redirects_writer.writerow(current_page_revision_text)
                                 else:
@@ -3871,23 +3957,39 @@ class WikipediaDumpXmlProcessor:
                                         record: WikipediaDumpXmlProcessorRecord = \
                                             WikipediaDumpXmlProcessorRecord()
                                         try:
-                                            WikipediaDumpXmlProcessorRecordFactory.process_wiki_text( \
+                                            WikipediaDumpXmlProcessorRecordFactory.process_wiki_text(
                                                 record=record,
                                                 input_wiki_text=current_page_revision_text)
-                                        except:
+                                        # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                        # pylint: disable=W0703
+                                        except Exception as exception:
                                             DebuggingHelper.write_line_to_system_console_out(\
                                                 "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
                                                 current_page_id))
+                                            DebuggingHelper.write_line_to_system_console_out(\
+                                                "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: exception={}".format(\
+                                                exception))
                                             processed_output_path_article_revision_exception_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
                                                     processed_output_filename_article_revision_exception_entry.format(count_article_page_rows_written, current_page_id))
-                                            with codecs.open( \
-                                                filename=processed_output_path_article_revision_exception_entry, \
-                                                mode="w", \
-                                                encoding=encoding) as processed_output_filename_article_revision_exception_entry_writer:
-                                                processed_output_filename_article_revision_exception_entry_writer.write(current_page_revision_text)
-                                                processed_output_filename_article_revision_exception_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            try:
+                                                with codecs.open( \
+                                                    filename=processed_output_path_article_revision_exception_entry, \
+                                                    mode="w", \
+                                                    encoding=encoding) as processed_output_filename_article_revision_exception_entry_writer:
+                                                    processed_output_filename_article_revision_exception_entry_writer.write(current_page_revision_text)
+                                                    # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_filename_article_revision_exception_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception_sub_codes_open:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
+                                                    current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
+                                                    exception_sub_codes_open))
+                                                raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
                                             None if generate_record_json_entry_article_revisions else \
@@ -3907,39 +4009,66 @@ class WikipediaDumpXmlProcessor:
                                                     record_json_friendly_structure, \
                                                     record.get_wiki_text_lines(), \
                                                     current_page_restrictions])
-                                            except:
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception:
                                                 DebuggingHelper.write_line_to_system_console_out(\
                                                     "==== EXCEPTION-THROWN-article_revisions_writer: current_page_id={}".format(\
                                                     current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-article_revisions_writer: exception={}".format(\
+                                                    exception))
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_article_revision_json_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
                                                     processed_output_filename_article_revision_json_entry.format(count_article_page_rows_written, current_page_id))
-                                            with codecs.open( \
-                                                filename=processed_output_path_article_revision_json_entry, \
-                                                mode="w", \
-                                                encoding=encoding) as processed_output_filename_article_revision_json_entry_writer:
-                                                json.dump( \
-                                                    ensure_ascii=False, \
-                                                    obj=record_json_friendly_structure, \
-                                                    fp=processed_output_filename_article_revision_json_entry_writer, \
-                                                    indent=2)
-                                                processed_output_filename_article_revision_json_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            try:
+                                                with codecs.open( \
+                                                    filename=processed_output_path_article_revision_json_entry, \
+                                                    mode="w", \
+                                                    encoding=encoding) as processed_output_filename_article_revision_json_entry_writer:
+                                                    json.dump( \
+                                                        ensure_ascii=False, \
+                                                        obj=record_json_friendly_structure, \
+                                                        fp=processed_output_filename_article_revision_json_entry_writer, \
+                                                        indent=2)
+                                                    # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_filename_article_revision_json_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception_sub_codes_open:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
+                                                    current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
+                                                    exception_sub_codes_open))
+                                                raise
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_revision_text_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
                                                     processed_output_filename_article_revision_text_entry.format(count_article_page_rows_written, current_page_id))
-                                            with codecs.open( \
-                                                filename=processed_output_path_article_revision_text_entry, \
-                                                mode="w", \
-                                                encoding=encoding) as processed_output_filename_article_revision_text_entry_writer:
-                                                record.write_lines_to_file( \
-                                                    web_page_title=current_page_title, \
-                                                    writer=processed_output_filename_article_revision_text_entry_writer)
-                                                processed_output_filename_article_revision_text_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            try:
+                                                with codecs.open( \
+                                                    filename=processed_output_path_article_revision_text_entry, \
+                                                    mode="w", \
+                                                    encoding=encoding) as processed_output_filename_article_revision_text_entry_writer:
+                                                    record.write_lines_to_file( \
+                                                        web_page_title=current_page_title, \
+                                                        writer=processed_output_filename_article_revision_text_entry_writer)
+                                                    # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_filename_article_revision_text_entry_writer.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                                            # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
+                                            # pylint: disable=W0703
+                                            except Exception as exception_sub_codes_open:
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
+                                                    current_page_id))
+                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
+                                                    exception_sub_codes_open))
+                                                raise
                                         count_article_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_revisions_writer.writerow(current_page_revision_text)
                             if (number_pages_processed_for_progress_update > 0) and \
@@ -3981,13 +4110,13 @@ class WikipediaDumpXmlProcessor:
                             (count_total_pages >= number_pages_processed_for_break):
                             break
                         element.clear() # ---- NOTE ---- need to clear the element, otherwise the system might run out of memory.
-                wikipedia_dump_xml_fd.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
-            article_revisions_writer.close()
-            article_redirects_writer.close()
-            templates_writer.close()
-            processed_output_file_handle_article_redirects.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
-            processed_output_file_handle_article_revisions.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
-            processed_output_file_handle_templates.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+                # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- wikipedia_dump_xml_fd.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+            # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- article_revisions_writer.close()
+            # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- article_redirects_writer.close()
+            # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- templates_writer.close()
+            # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_file_handle_article_revisions.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+            # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_file_handle_article_redirects.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
+            # ---- NOTE-PLACE-HOLDER-MAY-NOT-NEED ---- processed_output_file_handle_templates.close() # ---- NOTE-TO-STUDY ---- is it necessary to call close() for codes.open with 'with'
         process_duration = time.time() - process_start_time
         DebuggingHelper.write_line_to_system_console_out(\
             "---- total number of pages processed: {}".format(\
