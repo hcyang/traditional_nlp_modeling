@@ -24,6 +24,7 @@ import csv
 import json
 import os
 import re
+import sys
 import time
 
 import xml.etree.ElementTree as etree
@@ -3717,12 +3718,12 @@ class WikipediaDumpXmlProcessor:
                                         # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                         # pylint: disable=W0703
                                         except Exception as exception:
-                                            DebuggingHelper.write_line_to_system_console_out(\
-                                                "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
-                                                current_page_id))
-                                            DebuggingHelper.write_line_to_system_console_out(\
-                                                "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: exception={}".format(\
-                                                exception))
+                                            # DebuggingHelper.write_line_to_system_console_err(\
+                                            #     "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
+                                            #     current_page_id))
+                                            # DebuggingHelper.write_line_to_system_console_err(\
+                                            #     "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: exception={}".format(\
+                                            #     exception))
                                             processed_output_path_template_exception_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
@@ -3737,12 +3738,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception_sub_codes_open:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
@@ -3763,12 +3773,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-templates_writer: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-templates_writer: exception={}".format(\
                                                     exception))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-templates_writer: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-templates_writer: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-templates_writer: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_template_json_entry: str = \
@@ -3789,12 +3808,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception_sub_codes_open:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                         if dump_individual_text_entry_files:
                                             processed_output_path_template_text_entry: str = \
@@ -3813,12 +3841,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception_sub_codes_open:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                         count_template_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- templates_writer.writerow(current_page_revision_text)
@@ -3837,12 +3874,12 @@ class WikipediaDumpXmlProcessor:
                                         # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                         # pylint: disable=W0703
                                         except Exception as exception:
-                                            DebuggingHelper.write_line_to_system_console_out(\
-                                                "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
-                                                current_page_id))
-                                            DebuggingHelper.write_line_to_system_console_out(\
-                                                "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: exception={}".format(\
-                                                exception))
+                                            # DebuggingHelper.write_line_to_system_console_err(\
+                                            #     "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
+                                            #     current_page_id))
+                                            # DebuggingHelper.write_line_to_system_console_err(\
+                                            #     "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: exception={}".format(\
+                                            #     exception))
                                             processed_output_path_article_redirect_exception_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
@@ -3857,12 +3894,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception_sub_codes_open:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
@@ -3887,12 +3933,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-article_redirects_writer: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-article_redirects_writer: exception={}".format(\
                                                     exception))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-article_redirects_writer: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-article_redirects_writer: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-article_redirects_writer: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_article_redirect_json_entry: str = \
@@ -3913,12 +3968,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception_sub_codes_open:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_redirect_text_entry: str = \
@@ -3937,12 +4001,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception_sub_codes_open:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                         count_redirect_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_redirects_writer.writerow(current_page_revision_text)
@@ -3963,12 +4036,12 @@ class WikipediaDumpXmlProcessor:
                                         # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                         # pylint: disable=W0703
                                         except Exception as exception:
-                                            DebuggingHelper.write_line_to_system_console_out(\
-                                                "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
-                                                current_page_id))
-                                            DebuggingHelper.write_line_to_system_console_out(\
-                                                "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: exception={}".format(\
-                                                exception))
+                                            # DebuggingHelper.write_line_to_system_console_err(\
+                                            #     "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: current_page_id={}".format(\
+                                            #     current_page_id))
+                                            # DebuggingHelper.write_line_to_system_console_err(\
+                                            #     "==== EXCEPTION-THROWN-WikipediaDumpXmlProcessorRecordFactory.process_wiki_text: exception={}".format(\
+                                            #     exception))
                                             processed_output_path_article_revision_exception_entry: str = \
                                                 os.path.join( \
                                                     self.wikipedia_output_process_path, \
@@ -3983,12 +4056,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception_sub_codes_open:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
@@ -4012,12 +4094,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-article_revisions_writer: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-article_revisions_writer: exception={}".format(\
                                                     exception))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-article_revisions_writer: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-article_revisions_writer: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-article_revisions_writer: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_article_revision_json_entry: str = \
@@ -4038,12 +4129,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception_sub_codes_open:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_revision_text_entry: str = \
@@ -4062,12 +4162,21 @@ class WikipediaDumpXmlProcessor:
                                             # ---- NOTE-PYLINT ----  W0703: Catching too general exception Exception (broad-except)
                                             # pylint: disable=W0703
                                             except Exception as exception_sub_codes_open:
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: current_page_id={}".format(\
                                                     current_page_id))
-                                                DebuggingHelper.write_line_to_system_console_out(\
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
+                                                    sys.last_value))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
+                                                    sys.last_type))
+                                                DebuggingHelper.write_line_to_system_console_err(\
+                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
+                                                    sys.last_traceback))
                                                 raise
                                         count_article_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_revisions_writer.writerow(current_page_revision_text)
