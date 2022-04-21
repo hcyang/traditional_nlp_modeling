@@ -1,11 +1,11 @@
 
 # pip -r requirements.txt
-# ---- NOTE-cannot-find-opencc-in-anaconda ---- conda install --file requirements.txt
+# ---- NOTE-CANNOT-FIND-opencc-IN-ANACONDA ---- conda install --file requirements.txt
 
 chardet
 colorama
 unidecode
 opencc
 psutil
-sklearn
+scikit-learn
 transformers

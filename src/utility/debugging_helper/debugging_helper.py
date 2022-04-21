@@ -6,6 +6,7 @@ This module provides some common debugging helper functions.
 """
 
 from typing import Any
+from typing import NoReturn
 
 import os
 import sys
@@ -13,7 +14,6 @@ import inspect
 import datetime
 import logging
 import shutil
-from typing import NoReturn
 
 # ---- NOTE-PYLINT ---- W0611: Unused Back imported from colorama (unused-import)
 # ---- NOTE-PYLINT ---- W0611: Unused Style imported from colorama (unused-import)
