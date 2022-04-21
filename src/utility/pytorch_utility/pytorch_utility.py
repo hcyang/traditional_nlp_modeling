@@ -35,11 +35,6 @@ from sklearn.metrics import classification_report
 from transformers import BertModel
 # from transformers import BertForSequenceClassification
 
-from simpletransformers.classification \
-    import ClassificationModel
-from simpletransformers.classification \
-    import ClassificationArgs
-
 from tensor.pytorch.neural_network.base_manged_neural_network_module \
     import BaseMangedNeuralNetworkModule
 
@@ -483,36 +478,6 @@ class PytorchUtility:
             },
         ]
         return optimizer_parameters
-
-    # ------------------------------------------------------------------------
-    # ---- NOTE-GENERIC-PYTORCH-SIMPLETRANSFORMERS-FUNCTIONS ----
-    # ------------------------------------------------------------------------
-
-    # ---- NOTE-PYLINT ---- W0613: Unused argument
-    # pylint: disable=W0613
-    @staticmethod
-    def create_simple_transformers_classification_model( \
-        simple_transformers_model_type: str, \
-        simple_transformers_model_name: str, \
-        simple_transformers_tokenizer_type: str = None, \
-        simple_transformers_tokenizer_name: str = None, \
-        simple_transformers_use_cuda: bool = True, \
-        simple_transformers_arguments: ClassificationArgs = None, \
-        pytorch_transformers_cache_dir: str = '') -> ClassificationModel:
-        """
-        Train a neural network model.
-        """
-        # ---- NOTE-PYLINT ---- R0913: Too many arguments (*/5) (too-many-arguments)
-        # pylint: disable=R0913
-        classification_model: ClassificationModel = ClassificationModel(
-            model_type=simple_transformers_model_type, \
-            model_name=simple_transformers_model_name, \
-            tokenizer_type=simple_transformers_tokenizer_type, \
-            tokenizer_name=simple_transformers_tokenizer_name, \
-            use_cuda=simple_transformers_use_cuda, \
-            args=simple_transformers_arguments, \
-            cache_dir=pytorch_transformers_cache_dir)
-        return classification_model
 
     # ------------------------------------------------------------------------
     # ---- NOTE-GENERIC-PYTORCH-FUNCTIONS-FOR-BaseMangedNeuralNetworkModule ----

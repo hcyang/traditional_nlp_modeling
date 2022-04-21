@@ -29,11 +29,6 @@ from pandas import DataFrame
 # import sklearn
 # from sklearn.metrics import classification_report
 
-from simpletransformers.classification \
-    import ClassificationModel
-from simpletransformers.classification \
-    import ClassificationArgs
-
 from data.manager.base_pytorch_dataset_nop_collator \
     import BasePytorchDatasetNopCollator
 
@@ -133,7 +128,7 @@ from utility.pytorch_utility.pytorch_utility \
 from utility.debugging_helper.debugging_helper \
     import DebuggingHelper
 
-def process_pytorch_arguments(parser):
+def process_pytorch_utility_arguments(parser):
     """
     To process data manager related arguments.
     """
@@ -159,7 +154,7 @@ def process_pytorch_arguments(parser):
 
 def main_kaggle_entity_annotated_corpus_entity_per_token_classification():
     """
-    The main_dunmore_simple_transformers() function can quickly test PytorchUtility functions
+    The main_kaggle_entity_annotated_corpus_entity_per_token_classification() function can quickly test PytorchUtility functions
     """
     # ---- NOTE-PYLINT ---- C0301: Line too long
     # pylint: disable=C0301
@@ -170,7 +165,7 @@ def main_kaggle_entity_annotated_corpus_entity_per_token_classification():
     # ------------------------------------------------------------------------
     parser = argparse.ArgumentParser()
     # ------------------------------------------------------------------------
-    # process_pytorch_arguments(parser)
+    # process_pytorch_utility_arguments(parser)
     # ------------------------------------------------------------------------
     args: argparse.Namespace = parser.parse_args()
     DebuggingHelper.write_line_to_system_console_out(
@@ -414,262 +409,6 @@ def main_kaggle_entity_annotated_corpus_entity_per_token_classification():
     # ---- 100%|████████████████████████████████████████████████████████████████| 3198/3198 [04:31<00:00, 11.79it/s]
     # ---- STDOUT-INFO: [2021-08-04T01:06:12.809247][main_kaggle_entity_annotated_corpus_entity_per_token_classification @ d:\git\EmbedML\private\hunyang\project\LanguageUnderstandingOpenSource\src\python\utility\pytorch_utility\app_pytorch_utility.py:296][DEBUG:10]: epoch=4, train_loss=0.04296390854169653, test_loss=0.19683858065119406
 
-
-def main_dunmore_simple_transformers():
-    """
-    The main_dunmore_simple_transformers() function can quickly test PytorchUtility functions
-    """
-    # ---- NOTE-PYLINT ---- C0301: Line too long
-    # pylint: disable=C0301
-    # ---- NOTE-PYLINT ---- W0612 Unused Variable
-    # pylint: disable=W0612
-    # ---- NOTE-PYLINT ---- R0914: Too many local variables (*/15) (too-many-locals)
-    # pylint: disable=R0914
-    # ------------------------------------------------------------------------
-    parser = argparse.ArgumentParser()
-    # ------------------------------------------------------------------------
-    # process_pytorch_arguments(parser)
-    # ------------------------------------------------------------------------
-    args: argparse.Namespace = parser.parse_args()
-    DebuggingHelper.write_line_to_system_console_out(
-        f'args={str(args)}')
-    # ------------------------------------------------------------------------
-    PytorchUtility.set_all_random_number_generator_seeds(47)
-    # ------------------------------------------------------------------------
-    # ---- NOTE-PYLINT ---- E1133: Non-iterable value * is used in an iterating context (not-an-iterable)
-    # pylint: disable=E1133
-    feature_raw_array_for_training: List[str] = \
-        [x[0] for x in DunmoreTrainingDatasetManager.static_get_feature_raw_arrays()]
-    label_index_array_for_training: List[int] = \
-        DunmoreTrainingDatasetManager.static_get_label_single_indexes()
-    text_labels_for_training: List[List[str, int]] = \
-        [[x[0], x[1]] for x in zip(feature_raw_array_for_training, label_index_array_for_training)]
-    text_labels_dataframe_for_training: DataFrame = \
-        DataFrame(text_labels_for_training)
-    # ==== text_labels_dataframe_for_training.columns = ["text", "labels"]
-    # ------------------------------------------------------------------------
-    simple_transformers_model_type: str = 'xlnet'
-    simple_transformers_tokenizer_type: str = 'xlnet'
-    simple_transformers_use_cuda: bool = True
-    # ---- NOTE-bert-large-uncased ---- simple_transformers_use_cuda: bool = False
-    pytorch_transformers_model: str = \
-        'xlnet-base-cased'
-    # ---- NOTE-bert-base-uncased ---- pytorch_transformers_model: str = \
-    # ---- NOTE-bert-base-uncased ----     'bert-base-uncased'
-    # ---- NOTE-bert-large-uncased ---- pytorch_transformers_model: str = \
-    # ---- NOTE-bert-large-uncased ----     'bert-large-uncased'
-    pytorch_transformers_model_tokenizer: str = \
-        'xlnet-base-cased'
-    # ---- NOTE-bert-base-uncased ---- pytorch_transformers_model_tokenizer: str = \
-    # ---- NOTE-bert-base-uncased ----     'bert-base-uncased'
-    # ---- NOTE-bert-large-uncased ---- pytorch_transformers_model_tokenizer: str = \
-    # ---- NOTE-bert-large-uncased ----     'bert-large-uncased'
-    # ---- NOTE-FOR-REFERENCE ---- 'xlnet-large-uncased' cannot load on a machine with only 4GB GPU
-    # ---- NOTE-FOR-REFERENCE ---- Exception has occurred: RuntimeError       (note: full exception trace is shown but execution is paused at: _run_module_as_main)
-    # ---- NOTE-FOR-REFERENCE ---- CUDA out of memory. Tried to allocate 16.00 MiB (GPU 0; 4.00 GiB total capacity; 3.01 GiB already allocated; 0 bytes free; 3.02 GiB reserved in total by PyTorch)
-    # ---- NOTE-FOR-REFERENCE ---- 'bert-large-uncased' cannot load on a machine with only 4GB GPU
-    # ---- NOTE-FOR-REFERENCE ---- Exception has occurred: RuntimeError       (note: full exception trace is shown but execution is paused at: _run_module_as_main)
-    # ---- NOTE-FOR-REFERENCE ---- CUDA out of memory. Tried to allocate 20.00 MiB (GPU 0; 4.00 GiB total capacity; 3.00 GiB already allocated; 0 bytes free; 3.01 GiB reserved in total by PyTorch)
-    pytorch_transformers_model_cache_dir_learner: str = \
-        'pytorch_transformers'
-    # ---- NOTE ---- use a fixed transformer tokenizer cache
-    pytorch_transformers_model_cache_dir_learner: str = \
-        os.path.join(os.path.os.sep, 'pyludispatch', '_model_and_tokenizers', 'pytorch_transformers', 'xlnet-base-cased')
-        # ---- '/pyludispatch/_model_and_tokenizers/pytorch_transformers/xlnet-base-cased'
-    # ---- NOTE-bert-base-uncased ---- pytorch_transformers_model_cache_dir_learner: str = \
-    # ---- NOTE-bert-base-uncased ----     os.path.join(os.path.os.sep, 'pyludispatch', '_model_and_tokenizers', 'pytorch_transformers', 'bert-base-uncased')
-    # ---- NOTE-bert-base-uncased ----     # ---- '/pyludispatch/_model_and_tokenizers/pytorch_transformers/bert-base-uncased'
-    # ---- NOTE-bert-large-uncased ---- pytorch_transformers_model_cache_dir_learner: str = \
-    # ---- NOTE-bert-large-uncased ----     os.path.join(os.path.os.sep, 'pyludispatch', '_model_and_tokenizers', 'pytorch_transformers', 'bert-large-uncased')
-    # ---- NOTE-bert-large-uncased ----     # ---- '/pyludispatch/_model_and_tokenizers/pytorch_transformers/bert-large-uncased'
-    # ---- NOTE-USE_SAME-AS-MODEL ---- pytorch_transformers_model_cache_dir_tokenizer: str = \
-    # ---- NOTE-USE_SAME-AS-MODEL ----     'pytorch_transformers'
-    # ---- NOTE-USE_SAME-AS-MODEL ---- # ---- NOTE ---- use a fixed transformer tokenizer cache
-    # ---- NOTE-USE_SAME-AS-MODEL ---- pytorch_transformers_model_cache_dir_tokenizer: str = \
-    # ---- NOTE-USE_SAME-AS-MODEL ----     os.path.join(os.path.os.sep, 'pyludispatch', '_model_and_tokenizers', 'pytorch_transformers', 'xlnet-base-cased')
-    # ---- NOTE-USE_SAME-AS-MODEL ----     # ---- '/pyludispatch/_model_and_tokenizers/pytorch_transformers/xlnet-base-cased'
-    # ---- NOTE-USE_SAME-AS-MODEL ---- # ---- NOTE-bert-base-uncased ---- pytorch_transformers_model_cache_dir_tokenizer: str = \
-    # ---- NOTE-USE_SAME-AS-MODEL ---- # ---- NOTE-bert-base-uncased ----     os.path.join(os.path.os.sep, 'pyludispatch', '_model_and_tokenizers', 'pytorch_transformers', 'bert-base-uncased')
-    # ---- NOTE-USE_SAME-AS-MODEL ---- # ---- NOTE-bert-base-uncased ----     # ---- '/pyludispatch/_model_and_tokenizers/pytorch_transformers/bert-base-uncased'
-    # ---- NOTE-USE_SAME-AS-MODEL ---- # ---- NOTE-bert-large-uncased ---- pytorch_transformers_model_cache_dir_tokenizer: str = \
-    # ---- NOTE-USE_SAME-AS-MODEL ---- # ---- NOTE-bert-large-uncased ----     os.path.join(os.path.os.sep, 'pyludispatch', '_model_and_tokenizers', 'pytorch_transformers', 'bert-large-uncased')
-    # ---- NOTE-USE_SAME-AS-MODEL ---- # ---- NOTE-bert-large-uncased ----     # ---- '/pyludispatch/_model_and_tokenizers/pytorch_transformers/bert-large-uncased'
-    # pytorch_transformers_model_tokenizer_do_lower_case: bool = True
-    simple_transformers_classification_model_arguments = \
-        ClassificationArgs( \
-            num_train_epochs=6)
-    # ---- simple_transformers_classification_model_arguments = \
-    # ----     ClassificationArgs( \
-    # ----         num_train_epochs=7,
-    # ----         train_batch_size=4,
-    # ----         eval_batch_size=4)
-    simple_transformers_classification_model: \
-        ClassificationModel = \
-            PytorchUtility.create_simple_transformers_classification_model( \
-            simple_transformers_model_type=simple_transformers_model_type, \
-            simple_transformers_model_name=pytorch_transformers_model, \
-            simple_transformers_tokenizer_type=simple_transformers_tokenizer_type, \
-            simple_transformers_tokenizer_name=pytorch_transformers_model_tokenizer, \
-            simple_transformers_use_cuda=simple_transformers_use_cuda, \
-            simple_transformers_arguments=simple_transformers_classification_model_arguments, \
-            pytorch_transformers_cache_dir=pytorch_transformers_model_cache_dir_learner)
-    # ------------------------------------------------------------------------
-    # results_before_training, model_outputs_before_training, wrong_predictions_before_training = \
-    #     simple_transformers_classification_model.eval_model(\
-    #         text_labels_dataframe_for_training)
-    # ------------------------------------------------------------------------
-    simple_transformers_classification_model.train_model(text_labels_dataframe_for_training)
-    # ------------------------------------------------------------------------
-    # results_after_training, model_outputs_after_training, wrong_predictions_after_training = \
-    #     simple_transformers_classification_model.eval_model(\
-    #         text_labels_dataframe_for_training)
-    # ------------------------------------------------------------------------
-    # ---- NOTE-PYLINT ---- E1133: Non-iterable value * is used in an iterating context (not-an-iterable)
-    # pylint: disable=E1133
-    feature_raw_array_for_testing: List[str] = \
-        [x[0] for x in DunmoreTestingDatasetManager.static_get_feature_raw_arrays()]
-    label_index_array_for_testing: List[int] = \
-        DunmoreTestingDatasetManager.static_get_label_single_indexes()
-    text_labels_for_testing: List[List[str, int]] = \
-        [[x[0], x[1]] for x in zip(feature_raw_array_for_testing, label_index_array_for_testing)]
-    text_labels_dataframe_for_testing: DataFrame = \
-        DataFrame(text_labels_for_testing)
-    # ==== text_labels_dataframe_for_testing.columns = ["text", "labels"]
-    # ------------------------------------------------------------------------
-    results_for_testing, model_outputs_for_testing, wrong_predictions_for_testing = \
-        simple_transformers_classification_model.eval_model(\
-            text_labels_dataframe_for_testing)
-    # ------------------------------------------------------------------------
-    # DebuggingHelper.write_line_to_system_console_out(
-    #     f'results_before_training:'
-    #     f'\n{results_before_training}')
-    # DebuggingHelper.write_line_to_system_console_out(
-    #     f'model_outputs_before_training:'
-    #     f'\n{model_outputs_before_training}')
-    # DebuggingHelper.write_line_to_system_console_out(
-    #     f'wrong_predictions_before_training:'
-    #     f'\n{wrong_predictions_before_training}')
-    # ------------------------------------------------------------------------
-    # DebuggingHelper.write_line_to_system_console_out(
-    #     f'results_after_training:'
-    #     f'\n{results_after_training}')
-    # DebuggingHelper.write_line_to_system_console_out(
-    #     f'model_outputs_after_training:'
-    #     f'\n{model_outputs_after_training}')
-    # DebuggingHelper.write_line_to_system_console_out(
-    #     f'wrong_predictions_after_training:'
-    #     f'\n{wrong_predictions_after_training}')
-    # ------------------------------------------------------------------------
-    DebuggingHelper.write_line_to_system_console_out(
-        f'results_for_testing:'
-        f'\n{results_for_testing}')
-    DebuggingHelper.write_line_to_system_console_out(
-        f'model_outputs_for_testing:'
-        f'\n{model_outputs_for_testing}')
-    DebuggingHelper.write_line_to_system_console_out(
-        f'wrong_predictions_for_testing:'
-        f'\n{wrong_predictions_for_testing}')
-    # ------------------------------------------------------------------------
-    # ---- NOTE-PYLINT ---- C0301: Line too long
-    # pylint: disable=C0301
-    # ------------------------------------------------------------------------
-    # ---- NOTE-FOR-REFERENCE ----     model_name='bert-base-uncased'
-    # ---- NOTE-FOR-REFERENCE ----     simple_transformers_use_cuda=True
-    # ---- NOTE-FOR-REFERENCE ----     num_train_epochs=5
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ---- auprc = 0.8997687504685543
-    # ---- NOTE-FOR-REFERENCE ---- auroc = 0.9515064249569539
-    # ---- NOTE-FOR-REFERENCE ---- eval_loss = 0.7407259472685468
-    # ---- NOTE-FOR-REFERENCE ---- fn = 40
-    # ---- NOTE-FOR-REFERENCE ---- fp = 104
-    # ---- NOTE-FOR-REFERENCE ---- mcc = 0.72097083041143
-    # ---- NOTE-FOR-REFERENCE ---- tn = 639
-    # ---- NOTE-FOR-REFERENCE ---- tp = 318
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ----   > (318+639)/(318+639+40+104)
-    # ---- NOTE-FOR-REFERENCE ----   [1] 0.8692098
-    # ------------------------------------------------------------------------
-    # ---- NOTE-FOR-REFERENCE ----     model_name='bert-base-uncased'
-    # ---- NOTE-FOR-REFERENCE ----     simple_transformers_use_cuda=True
-    # ---- NOTE-FOR-REFERENCE ----     num_train_epochs=6
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ---- auprc = 0.8784354560933525
-    # ---- NOTE-FOR-REFERENCE ---- auroc = 0.9447938675308466
-    # ---- NOTE-FOR-REFERENCE ---- eval_loss = 0.8098325022752313
-    # ---- NOTE-FOR-REFERENCE ---- fn = 35
-    # ---- NOTE-FOR-REFERENCE ---- fp = 102
-    # ---- NOTE-FOR-REFERENCE ---- mcc = 0.7360427769300535
-    # ---- NOTE-FOR-REFERENCE ---- tn = 641
-    # ---- NOTE-FOR-REFERENCE ---- tp = 323
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ----   > (323+641)/(323+641+25+102)
-    # ---- NOTE-FOR-REFERENCE ----   [1] 0.883593
-    # ------------------------------------------------------------------------
-    # ---- NOTE-FOR-REFERENCE ----     model_name='bert-base-uncased'
-    # ---- NOTE-FOR-REFERENCE ----     simple_transformers_use_cuda=True
-    # ---- NOTE-FOR-REFERENCE ----     num_train_epochs=6
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ---- auprc = 0.9005559606288014
-    # ---- NOTE-FOR-REFERENCE ---- auroc = 0.9499969924133628
-    # ---- NOTE-FOR-REFERENCE ---- eval_loss = 0.7718211210292107
-    # ---- NOTE-FOR-REFERENCE ---- fn = 36
-    # ---- NOTE-FOR-REFERENCE ---- fp = 91
-    # ---- NOTE-FOR-REFERENCE ---- mcc = 0.7517407129772101
-    # ---- NOTE-FOR-REFERENCE ---- tn = 652
-    # ---- NOTE-FOR-REFERENCE ---- tp = 322
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ----   > (322+652)/(322+652+36+91)
-    # ---- NOTE-FOR-REFERENCE ----   [1] 0.8846503
-    # ------------------------------------------------------------------------
-    # ---- NOTE-FOR-REFERENCE ----     model_name='bert-large-uncased'
-    # ---- NOTE-FOR-REFERENCE ----     simple_transformers_use_cuda=False
-    # ---- NOTE-FOR-REFERENCE ----     num_train_epochs=5
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ---- auprc = 0.8879423540062982
-    # ---- NOTE-FOR-REFERENCE ---- auroc = 0.9595366812785251
-    # ---- NOTE-FOR-REFERENCE ---- eval_loss = 0.6178433844109521
-    # ---- NOTE-FOR-REFERENCE ---- fn = 34
-    # ---- NOTE-FOR-REFERENCE ---- fp = 87
-    # ---- NOTE-FOR-REFERENCE ---- mcc = 0.7630990143720023
-    # ---- NOTE-FOR-REFERENCE ---- tn = 656
-    # ---- NOTE-FOR-REFERENCE ---- tp = 324
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ----   > (324+656)/(324+656+34+87)
-    # ---- NOTE-FOR-REFERENCE ----   [1] 0.8900999
-    # ------------------------------------------------------------------------
-    # ---- NOTE-FOR-REFERENCE ----     model_name='xlnet-base-cased'
-    # ---- NOTE-FOR-REFERENCE ----     simple_transformers_use_cuda=True
-    # ---- NOTE-FOR-REFERENCE ----     num_train_epochs=5
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ---- auprc = 0.808566453288734
-    # ---- NOTE-FOR-REFERENCE ---- auroc = 0.9362805176056603
-    # ---- NOTE-FOR-REFERENCE ---- eval_loss = 0.3930719734938896
-    # ---- NOTE-FOR-REFERENCE ---- fn = 27
-    # ---- NOTE-FOR-REFERENCE ---- fp = 111
-    # ---- NOTE-FOR-REFERENCE ---- mcc = 0.7407784976803038
-    # ---- NOTE-FOR-REFERENCE ---- tn = 632
-    # ---- NOTE-FOR-REFERENCE ---- tp = 331
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ----   > (331+632)/(331+632+27+111)
-    # ---- NOTE-FOR-REFERENCE ----   [1] 0.8746594
-    # ------------------------------------------------------------------------
-    # ---- NOTE-FOR-REFERENCE ----     model_name='xlnet-base-cased'
-    # ---- NOTE-FOR-REFERENCE ----     simple_transformers_use_cuda=True
-    # ---- NOTE-FOR-REFERENCE ----     num_train_epochs=6
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ---- auprc = auprc = 0.334883787692963
-    # ---- NOTE-FOR-REFERENCE ---- auroc = 0.5220136544433334
-    # ---- NOTE-FOR-REFERENCE ---- eval_loss = 0.6468220145806022
-    # ---- NOTE-FOR-REFERENCE ---- fn = 358
-    # ---- NOTE-FOR-REFERENCE ---- fp = 0
-    # ---- NOTE-FOR-REFERENCE ---- mcc = 0.0
-    # ---- NOTE-FOR-REFERENCE ---- tn = 743
-    # ---- NOTE-FOR-REFERENCE ---- tp = 0
-    # ---- NOTE-FOR-REFERENCE ----
-    # ---- NOTE-FOR-REFERENCE ----   > (0+743)/(0+743+0+358)
-    # ---- NOTE-FOR-REFERENCE ----   [1] 0.6748411
-    # ------------------------------------------------------------------------
-
 def main_dunmore():
     """
     The main_dunmore() function can quickly test PytorchUtility functions
@@ -683,7 +422,7 @@ def main_dunmore():
     # ------------------------------------------------------------------------
     parser = argparse.ArgumentParser()
     # ------------------------------------------------------------------------
-    # process_pytorch_arguments(parser)
+    # process_pytorch_utility_arguments(parser)
     # ------------------------------------------------------------------------
     args: argparse.Namespace = parser.parse_args()
     DebuggingHelper.write_line_to_system_console_out(
@@ -1008,7 +747,7 @@ def main_text_spam():
     # ------------------------------------------------------------------------
     parser = argparse.ArgumentParser()
     # ------------------------------------------------------------------------
-    # process_pytorch_arguments(parser)
+    # process_pytorch_utility_arguments(parser)
     # ------------------------------------------------------------------------
     args: argparse.Namespace = parser.parse_args()
     DebuggingHelper.write_line_to_system_console_out(
@@ -1158,7 +897,7 @@ def main_text_spam_raw():
     # ------------------------------------------------------------------------
     parser = argparse.ArgumentParser()
     # ------------------------------------------------------------------------
-    # process_pytorch_arguments(parser)
+    # process_pytorch_utility_arguments(parser)
     # ------------------------------------------------------------------------
     args: argparse.Namespace = parser.parse_args()
     DebuggingHelper.write_line_to_system_console_out(
@@ -1309,7 +1048,7 @@ def main_iris():
     # ------------------------------------------------------------------------
     parser = argparse.ArgumentParser()
     # ------------------------------------------------------------------------
-    # process_pytorch_arguments(parser)
+    # process_pytorch_utility_arguments(parser)
     # ------------------------------------------------------------------------
     args: argparse.Namespace = parser.parse_args()
     DebuggingHelper.write_line_to_system_console_out(
@@ -1461,7 +1200,6 @@ def main_functional_tests():
     # main_text_spam_raw()
     # main_text_spam()
     # main_dunmore()
-    # main_dunmore_simple_transformers()
     main_kaggle_entity_annotated_corpus_entity_per_token_classification()
 
 def main():
