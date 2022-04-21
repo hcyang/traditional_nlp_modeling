@@ -3744,15 +3744,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-codecs.open')
                                                 raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
@@ -3779,15 +3772,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-templates_writer: exception={}".format(\
                                                     exception))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-templates_writer: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-templates_writer: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-templates_writer: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-templates_writer')
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_template_json_entry: str = \
@@ -3814,15 +3800,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-codecs.open')
                                                 raise
                                         if dump_individual_text_entry_files:
                                             processed_output_path_template_text_entry: str = \
@@ -3847,15 +3826,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-codecs.open')
                                                 raise
                                         count_template_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- templates_writer.writerow(current_page_revision_text)
@@ -3900,15 +3872,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-codecs.open')
                                                 raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
@@ -3939,15 +3904,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-article_redirects_writer: exception={}".format(\
                                                     exception))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-article_redirects_writer: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-article_redirects_writer: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-article_redirects_writer: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-article_redirects_writer')
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_article_redirect_json_entry: str = \
@@ -3974,15 +3932,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-codecs.open')
                                                 raise
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_redirect_text_entry: str = \
@@ -4007,15 +3958,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-codecs.open')
                                                 raise
                                         count_redirect_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_redirects_writer.writerow(current_page_revision_text)
@@ -4062,15 +4006,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-codecs.open')
                                                 raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
@@ -4100,15 +4037,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-article_revisions_writer: exception={}".format(\
                                                     exception))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-article_revisions_writer: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-article_revisions_writer: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-article_revisions_writer: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-article_revisions_writer')
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_article_revision_json_entry: str = \
@@ -4135,16 +4065,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
-                                                raise
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-codecs.open')
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_revision_text_entry: str = \
                                                 os.path.join( \
@@ -4168,15 +4090,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.write_line_to_system_console_err(\
                                                     "==== EXCEPTION-THROWN-codecs.open: exception_sub_codes_open={}".format(\
                                                     exception_sub_codes_open))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_value={}".format(\
-                                                    sys.last_value))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_type={}".format(\
-                                                    sys.last_type))
-                                                DebuggingHelper.write_line_to_system_console_err(\
-                                                    "==== EXCEPTION-THROWN-codecs.open: sys.last_traceback={}".format(\
-                                                    sys.last_traceback))
+                                                DebuggingHelper.display_last_error(
+                                                    '==== EXCEPTION-THROWN-codecs.open')
                                                 raise
                                         count_article_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_revisions_writer.writerow(current_page_revision_text)

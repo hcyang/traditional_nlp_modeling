@@ -5,12 +5,15 @@
 This module provides some common debugging helper functions.
 """
 
+from typing import Any
+
 import os
 import sys
 import inspect
 import datetime
 import logging
 import shutil
+from typing import NoReturn
 
 # ---- NOTE-PYLINT ---- W0611: Unused Back imported from colorama (unused-import)
 # ---- NOTE-PYLINT ---- W0611: Unused Style imported from colorama (unused-import)
@@ -778,3 +781,22 @@ class DebuggingHelper:
         if isinstance(input_object, str):
             return input_object.encode('utf-8')
         return  str(input_object).encode('utf-8')
+
+    @staticmethod
+    def display_last_error(header_message: str)-> NoReturn:
+        sys_exc_info: Any = sys.exc_info
+        sys_last_type: Any = sys_exc_info[0]
+        sys_last_value: Any = sys_exc_info[1]
+        sys_last_traceback: Any = sys_exc_info[2]
+        DebuggingHelper.write_line_to_system_console_err(
+            "{}: sys_last_value={}".format(
+                header_message,
+                sys_last_value))
+        DebuggingHelper.write_line_to_system_console_err(
+            "{}: sys_last_type={}".format(
+                header_message,
+                sys_last_type))
+        DebuggingHelper.write_line_to_system_console_err(
+            "{}: sys_last_traceback={}".format(
+                header_message,
+                sys_last_traceback))
