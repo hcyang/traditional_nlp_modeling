@@ -3748,7 +3748,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception_sub_codes_open))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise
@@ -3779,7 +3779,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-templates_writer')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-templates_writer: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise
@@ -3810,7 +3810,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception_sub_codes_open))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise
@@ -3839,7 +3839,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception_sub_codes_open))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise
@@ -3888,7 +3888,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception_sub_codes_open))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise
@@ -3923,7 +3923,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-article_redirects_writer')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-article_redirects_writer: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise
@@ -3954,7 +3954,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception_sub_codes_open))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise
@@ -3983,7 +3983,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception_sub_codes_open))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise
@@ -4034,7 +4034,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception_sub_codes_open))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise
@@ -4068,7 +4068,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-article_revisions_writer')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-article_revisions_writer: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise
@@ -4124,7 +4124,7 @@ class WikipediaDumpXmlProcessor:
                                                     exception_sub_codes_open))
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
-                                                DebuggingHelper.write_line_to_system_console_err(
+                                                DebuggingHelper.write_line_to_system_console_err(\
                                                     '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
                                                     IoHelper.count_process_open_files()))
                                                 raise

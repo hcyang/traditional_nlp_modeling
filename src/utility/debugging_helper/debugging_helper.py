@@ -11,6 +11,7 @@ from typing import NoReturn
 import os
 import sys
 import inspect
+import json
 import datetime
 import logging
 import shutil
@@ -788,7 +789,7 @@ class DebuggingHelper:
         DebuggingHelper.write_line_to_system_console_err(
             "{}: sys_exc_info={}".format(
                 header_message,
-                sys_exc_info))
+                json.dumps(sys_exc_info)))
         # sys_last_type: Any = sys_exc_info[0]
         # sys_last_value: Any = sys_exc_info[1]
         # sys_last_traceback: Any = sys_exc_info[2]
