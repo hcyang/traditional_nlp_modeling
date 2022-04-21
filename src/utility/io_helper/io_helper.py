@@ -305,8 +305,13 @@ class IoHelper:
             extract_dir=path_to_uncompress)
 
     @staticmethod
-    def count_open_files(current_process: psutil.Process) -> int:
+    def count_process_open_files(current_process: psutil.Process = None) -> int:
+        current_process_open_files = IoHelper.get_process_open_files(
+            current_process=current_process)
+        return len(current_process_open_files)
+    @staticmethod
+    def get_process_open_files(current_process: psutil.Process = None) -> int:
         if current_process is None:
             current_process = psutil.Process()
         current_process_open_files = current_process.open_files()
-        return len(current_process_open_files)
+        return current_process_open_files

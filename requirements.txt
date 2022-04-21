@@ -7,3 +7,5 @@ colorama
 unidecode
 opencc
 psutil
+sklearn
+transformers

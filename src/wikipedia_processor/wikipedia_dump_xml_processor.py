@@ -3749,8 +3749,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
@@ -3780,8 +3780,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-templates_writer')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-templates_writer: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-templates_writer: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_template_json_entry: str = \
@@ -3811,8 +3811,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                         if dump_individual_text_entry_files:
                                             processed_output_path_template_text_entry: str = \
@@ -3840,8 +3840,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                         count_template_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- templates_writer.writerow(current_page_revision_text)
@@ -3889,8 +3889,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
@@ -3924,8 +3924,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-article_redirects_writer')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-article_redirects_writer: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-article_redirects_writer: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_article_redirect_json_entry: str = \
@@ -3955,8 +3955,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                         if dump_individual_text_entry_files:
                                             processed_output_path_article_redirect_text_entry: str = \
@@ -3984,8 +3984,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                         count_redirect_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_redirects_writer.writerow(current_page_revision_text)
@@ -4035,8 +4035,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                             continue # ---- NOTE ---- ignore this case
                                         record_json_friendly_structure: Any = \
@@ -4069,8 +4069,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-article_revisions_writer')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-article_revisions_writer: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-article_revisions_writer: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                         if dump_individual_json_entry_files:
                                             processed_output_path_article_revision_json_entry: str = \
@@ -4125,8 +4125,8 @@ class WikipediaDumpXmlProcessor:
                                                 DebuggingHelper.display_last_error(
                                                     '==== EXCEPTION-THROWN-codecs.open')
                                                 DebuggingHelper.write_line_to_system_console_err(
-                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_open_files()={}'.format(\
-                                                    IoHelper.count_open_files()))
+                                                    '==== EXCEPTION-THROWN-codecs.open: IoHelper.count_process_open_files()={}'.format(\
+                                                    IoHelper.count_process_open_files()))
                                                 raise
                                         count_article_page_rows_written += 1
                                         # ---- NOTE-FOR-DEBUGGING ---- article_revisions_writer.writerow(current_page_revision_text)
