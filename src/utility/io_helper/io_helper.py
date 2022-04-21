@@ -5,8 +5,9 @@
 This module provides some common IO helper functions.
 """
 
-from typing import NoReturn
+from typing import Any
 from typing import List
+from typing import NoReturn
 from typing import Tuple
 
 import os
@@ -16,6 +17,7 @@ import shutil
 import codecs
 from pathlib import Path as pathlib_path
 import chardet
+import psutil
 
 from utility.datatype_helper.datatype_helper \
     import DatatypeHelper
@@ -301,3 +303,10 @@ class IoHelper:
             filename=compression_filename,
             format='zip',
             extract_dir=path_to_uncompress)
+
+    @staticmethod
+    def count_open_files(current_process: psutil.Process) -> int:
+        if current_process is None:
+            current_process = psutil.Process()
+        current_process_open_files = current_process.open_files()
+        return len(current_process_open_files)

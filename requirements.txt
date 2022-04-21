@@ -6,3 +6,4 @@ chardet
 colorama
 unidecode
 opencc
+psutil
