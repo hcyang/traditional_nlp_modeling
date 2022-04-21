@@ -5,7 +5,9 @@
 chardet
 colorama
 unidecode
-opencc
+opencc # ---- pip install opencc
 psutil
 scikit-learn
 transformers
+datasets  # ---- conda install -c huggingface datasets
+sentencepiece # ---- conda install -c conda-forge sentencepiece
