@@ -315,3 +315,10 @@ class IoHelper:
             current_process = psutil.Process()
         current_process_open_files = current_process.open_files()
         return current_process_open_files
+
+    @staticmethod
+    def get_file_system_stat(path: str = None) -> Any:
+        if path == None:
+            path = '.'
+        stat_file_system: Any = os.statvfs(path)
+        return stat_file_system

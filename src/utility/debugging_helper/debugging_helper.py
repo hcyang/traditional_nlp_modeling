@@ -785,7 +785,7 @@ class DebuggingHelper:
 
     @staticmethod
     def display_last_error(header_message: str)-> NoReturn:
-        sys_exc_info: Any = sys.exc_info
+        sys_exc_info: Any = sys.exc_info()
         DebuggingHelper.write_line_to_system_console_err(
             "{}: sys_exc_info={}".format(
                 header_message,
