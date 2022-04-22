@@ -14,3 +14,7 @@ export OUTPUT_MODEL_CHECKPOINT_PATH=$DATA_ROOT/data_wikipedia/_dumps.wikimedia.o
 
 python -m $APP_MODULE_PATH.$APP_MODULE_FILE_NAME --trainer_argument_use_cuda=$TRAINER_ARGUMENT_USE_CUDA --input_path=$INPUT_PATH --output_model_checkpoint_path=$OUTPUT_MODEL_CHECKPOINT_PATH
 
+
+# ---- curl https://storage.googleapis.com/bert_models/2018_11_23/multi_cased_L-12_H-768_A-12.zip
+# ---- curl https://storage.googleapis.com/bert_models/2018_11_03/chinese_L-12_H-768_A-12.zip
+# ---- curl https://storage.googleapis.com/bert_models/2018_11_03/multilingual_L-12_H-768_A-12.zip
