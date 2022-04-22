@@ -11,3 +11,4 @@ scikit-learn
 transformers
 datasets  # ---- conda install -c huggingface datasets
 sentencepiece # ---- conda install -c conda-forge sentencepiece
+pytorch # ---- conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
